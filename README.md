@@ -2,7 +2,7 @@
 
 ### 什么是JNI
 
-JNI，英文全名为：Java Native Interface
+##### JNI，英文全名为：Java Native Interface
 
 jNi就是java调用本地方法的技术，最简单的来说，java运行一个程序需要要和不同的系统平台打交道，在windows里就是和
 
@@ -24,7 +24,7 @@ java程序也只能在这一个系统上运行了。所以jni就使得java很容
 
 而实现了这些本地方法的操作系统就可以移植java平台了。
 
-java和C语言的异同：
+##### java和C语言的异同
 
 Java属于解释型语言, 跨平台, 编译运行效率相对较低，高级语言
 
