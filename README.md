@@ -1,3 +1,5 @@
+#JNI学习笔记<一>
+
 ###什么是JNI
 
 JNI，英文全名为：Java Native Interface
