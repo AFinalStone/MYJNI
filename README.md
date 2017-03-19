@@ -1,64 +1,166 @@
-## NDK学习笔记<一> 初步认识JNI
+## NDK学习笔记<二> 搭建NDK开发环境
+
+### 工欲善其事必先利其器，进行NDK开发的第一步，当然是NDK的开发环境搭建了，这里简单讲述一下个人搭建过程
+
+* 一、在AndroidStudio中依次点击Tools->Android->SDK Manager
+
+ ![图一](/screens/S2_01.png)
+
+* 二、在Android SDK中点击SDK Tools，然后勾选LLDB和NDK选项，然后OK确认，进行NDK Build的下载
+
+ ![图二](/screens/S2_02.png)
+
+* 三、成功更新下载NDK Build之后，我们要进行NDK环境变量的配置，右键计算机->属性->高级系统设置->环境变量
+->Path ，双击Path进行编辑，我的NDK Build是下载到了D:\Android_Studio\SDK\ndk-bundle文件夹下面，
+所以我在Path的后面添加 **;D:\Android_Studio\SDK\ndk-bundle**
+
+ ![图三](/screens/S2_03.png)
+
+* 四、成功更新下载NDK Build之后，我们要进行NDK环境变量的配置，右键计算机->属性->高级系统设置->环境变量->Path ，
+  双击Path进行编辑，我的NDK Build是下载到了D:\Android_Studio\SDK\ndk-bundle文件夹下面，所以我在Path的后面
+  添加 **;D:\Android_Studio\SDK\ndk-bundle**
+
+  ![图三](/screens/S2_03.png)
+
+* 五、配置完成之后，我们在运行窗口中输入cmd，打开命令行窗口，输入ndk-build -version，看到如图所示内容，说明配置成功
+
+  ![图四](/screens/S2_04.png);
+
+* 六、我们新建一个普通的Android项目，这里我取名为MYJNI，接着编写MainActivity.java的具体代码
+
+```java
+
+package com.shi.androidstudy.myjni;
+
+import android.os.SystemClock;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(2000);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this,sayHello(),Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    //定义JNI方法名，使得java代码可以调用C代码
+    public native String sayHello();
+
+    static {
+        // 虚拟机加载类的第一步，首先要导入动态库，这里我生成的链接库名称叫做hello，
+        // 也就是libhello.so去掉前面的lib和后面的.so字段
+        System.loadLibrary("hello");
+    }
+}
+
+```
 
 
-### 什么是JNI
-##### JNI，英文全名为：Java Native Interface
+* 七、然后我们在app目录下面添加**jni文件夹**，并在里面添加三个文件：
 
-jNi就是java调用本地方法的技术，最简单的来说，java运行一个程序需要要和不同的系统平台打交道，在windows里就是和
-windows平台底层打交道，mac就是要和mac打交道，jvm就是通过大量的jni技术使得java能够在不同平台上运行。而使用了
-这技术的一个标志就是native,如果一个类里的一个方法被native修饰，那就说明这个方法是jni来实现的，他是通过本地系统
-api里的方法来实现的。当然这个本地方法可能是c或者C++，当然也可能是别的语言。jni是java跨平台的基础，jvm通过
-在不同系统上调用不同的本地方法使得jvm可以在不同平台间移植。
-当前你自己也可以用jni来写一些程序，这种基本上是你以前使用了其他语言完成了一些功能，但是你有要用java来重复这些功能
-的时候，就可以使用jni来完成了。不过带来的问题就是，如果你的那个本地方法是依托于本地操作系统的话，那就意味着你的
-java程序也只能在这一个系统上运行了。所以jni就使得java很容易限定在了一个系统平台上，而jdk的作用在于他提供一个规
-范，这个规范就是包含了很多native方法，这些方法都是要本地操作系统来实现的，
-而实现了这些本地方法的操作系统就可以移植java平台了。
+![图五](/screens/S2_05.png);
 
-##### java和C语言的异同
+* hello.c
+```c
+#include <jni.h>
 
-Java属于解释型语言, 跨平台, 编译运行效率相对较低，高级语言
+/*
+ * 对应的native方法, 需要一个string的返回值
+ * jstring 对应Java中的String
+ * Java_com_shi_androidstudy_myjni_MainActivity_sayHello 方法名
+ * Java_包名(.改成_)_类名_方法名
+ *
+ * JNIEnv* Java当前虚拟机运行环境
+ * jobject 当前调用这个函数的Java对象
+ */
+jstring Java_com_shi_androidstudy_myjni_MainActivity_sayHello(JNIEnv* env, jobject obj) {
+	char* pc = "Hello from c";
+	// jstring返回值  (*NewStringUTF)(JNIEnv*  java虚拟机运行环境, const char* C语言中的字符串);
+	jstring str = (**env).NewStringUTF(env, pc);
+	return str;
+}
 
-C语言属于编译型语言, 本地语言, 无法跨平台，性能卓越，低级语言
+```
 
-上面的高级和低级没有优差之分，只是说明了语言和底层机器的距离
+这个文件是具体的C语言代码
 
-##### JNI的用途
+* Android.mk
+```mk
 
-* 1.市场上面，大多高级工程师，都要求会使用**
-* 2.效率优先的场合, 需要用到C语言**
-* 3.C语言有一些优秀的类库, 在做程序的时候需要用到(WebKit, FFMPEG)**
-* 4.操作硬件一般使用C语言, 需要使用Java调用C来控制硬件**
-* 5.安全性优先, 保密性优先的场合, 需要用到C语言, 因为C语言是几乎无法编译的**
+LOCAL_PATH := $(call my-dir)
 
-##### 如何学习JNI
+include $(CLEAR_VARS)
 
-* 1.首先要懂的Java代码**
-* 2.然后还要懂得C语言,C++语言**
-* 3.熟悉JNI接口规范，要懂得查看<jni.h>文件**
+LOCAL_MODULE    := hello
+LOCAL_SRC_FILES := hello.c
 
-##### JNI开发中的概念
-* 常见的CPU指令集：
-	* arm
-	* x86
-	* mips
-* 常见的电脑操作系统
-	* Windows
-	* Linux
-* 使用NDK进行交叉编译
-	* 即在Windows上编译出来Linux可以使用的库文件
-* 交叉编译的原理
-	* 编译过程: 源文件 -> 链接
-	* 原理: 模拟出来linux环境
-* NDK
-	* Google提供的本地开发套件
-	* Native Develop Kit
-	* Google提供给我们用来交叉编译的工具链
-* 常见的动态库文件
-	* Windows平台下面的是dll文件
-	* linux平台下面是so文件
-* 常见的开发插件：
-    ADT(Android Development Tool), JDT(Java Development Tool), CDT(C Development Tool)
-* Java中的native方法
-	* 使用Java进行定义声明, C语言具体实现函数内容
-	* 目的是为了用于让Java代码可以调用C函数
+include $(BUILD_SHARED_LIBRARY)
+
+```
+这个文件主要是为了告诉ndk-build我们想要生成的库文件名和需要编译的C或者C++文件名，在这里我想要编辑的C文件名
+叫做hello.c，我想要使用的库文件名叫做hello
+
+* Application.mk
+
+```mk
+
+APP_ABI := all
+
+```
+这个文件主要是为了告诉ndk-build我们想要生成适用于那些CPU指令集的库文件，=all就是编译生成所有CPU指令集的库文件
+
+* 八、接着我们选中hello.c文件，右键Show in explorer，进入上面三个文件所在的文件夹，按住shift按键，然后右键点击
+在此处打开命令窗口
+
+![图六](/screens/S2_06.png);
+
+* 九、我们在命令行窗口中输入ndk-build，点击回车
+
+![图七](/screens/S2_07.png);
+
+* 十、修改build.gradle
+
+我们需要修改build.gradle文件，否次运行程序，会提示findLibrary returned null之类的错误信息
+
+```gridle
+
+android {
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+}
+```
+
+* 成功运行项目
+
+![成功](/screens/GIF.gif);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
