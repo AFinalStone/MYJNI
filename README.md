@@ -1,4 +1,4 @@
-## NDK学习笔记<一>  初步认识JNI
+## NDK学习笔记<一> 初步认识JNI
 
 
 ### 什么是JNI
@@ -36,3 +36,29 @@ C语言属于编译型语言, 本地语言, 无法跨平台，性能卓越，低
 * 1.首先要懂的Java代码**
 * 2.然后还要懂得C语言,C++语言**
 * 3.熟悉JNI接口规范，要懂得查看<jni.h>文件**
+
+##### JNI开发中的概念
+* 常见的CPU指令集：
+	* arm
+	* x86
+	* mips
+* 常见的电脑操作系统
+	* Windows
+	* Linux
+* 使用NDK进行交叉编译
+	* 即在Windows上编译出来Linux可以使用的库文件
+* 交叉编译的原理
+	* 编译过程: 源文件 -> 链接
+	* 原理: 模拟出来linux环境
+* NDK
+	* Google提供的本地开发套件
+	* Native Develop Kit
+	* Google提供给我们用来交叉编译的工具链
+* 常见的动态库文件
+	* Windows平台下面的是dll文件
+	* linux平台下面是so文件
+* 常见的开发插件：
+    ADT(Android Development Tool), JDT(Java Development Tool), CDT(C Development Tool)
+* Java中的native方法
+	* 使用Java进行定义声明, C语言具体实现函数内容
+	* 目的是为了用于让Java代码可以调用C函数
