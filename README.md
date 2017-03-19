@@ -132,6 +132,8 @@ APP_ABI := all
 
 ![图七](/screens/S2_07.png);
 
+![图八](/screens/GIF.gif);
+
 ##### 十、修改build.gradle
 
 我们需要修改build.gradle文件，否次运行程序，会提示findLibrary returned null之类的错误信息
@@ -146,9 +148,7 @@ android {
 }
 ```
 
-##### 成功运行项目
-
-![成功](/screens/GIF.gif);
+##### 十、成功运行项目
 
 
 
