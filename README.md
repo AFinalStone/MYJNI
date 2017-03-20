@@ -76,6 +76,32 @@ APP_ABI := all
 ![运行项目](/screen/ndk01_03.gif)
 
 
+##### 五、更加方便的使用javah
+
+本文主要实现了如何对一个包含native方法的对象生成.h文件，以方便我们使用其中的函数名，上面我们是通过命令行来
+生成.h文件，下面我们再介绍一种更加简单的方法，把javah添加的AndroidStudio的Tool中，我们直接右键就能生成
+我们想要的.h文件
+
+- 在设置界面，找到External Tools，如下图，然后点击右边方框的“+”。
+
+![设置tool](/screen/ndk01_04.png)
+
+继续设置相应的参数
+
+![设置tool参数](/screen/ndk01_05.png)
+
+```参数
+
+Program: $JDKPath$\bin\javah.exe
+Parameters: -classpath . -jni -d $ModuleFileDir$/src/main/jni $FileClass$
+Working directory: $ModuleFileDir$\src\main\Java
+
+```
+使用我们添加的Tool，成功生成.h文件
+![设置tool参数](/screen/ndk01_06.gif)
+
+
+
 
 
 
