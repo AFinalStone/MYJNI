@@ -150,6 +150,8 @@ android {
 
 ##### 十、成功运行项目
 
+![图九](/screen/SUCCESS.gif);
+
 
 
 
