@@ -4,27 +4,27 @@
 
 ##### 一、在AndroidStudio中依次点击Tools->Android->SDK Manager
 
- ![图一](/screens/S2_01.png)
+ ![图一](/screen/S2_01.png)
 
 ##### 二、在Android SDK中点击SDK Tools，然后勾选LLDB和NDK选项，然后OK确认，进行NDK Build的下载
 
- ![图二](/screens/S2_02.png)
+ ![图二](/screen/S2_02.png)
 
 ##### 三、成功更新下载NDK Build之后，我们要进行NDK环境变量的配置，右键计算机->属性->高级系统设置->环境变量
 ->Path ，双击Path进行编辑，我的NDK Build是下载到了D:\Android_Studio\SDK\ndk-bundle文件夹下面，
 所以我在Path的后面添加 **;D:\Android_Studio\SDK\ndk-bundle**
 
- ![图三](/screens/S2_03.png)
+ ![图三](/screen/S2_03.png)
 
 ##### 四、成功更新下载NDK Build之后，我们要进行NDK环境变量的配置，右键计算机->属性->高级系统设置->环境变量->Path ，
   双击Path进行编辑，我的NDK Build是下载到了D:\Android_Studio\SDK\ndk-bundle文件夹下面，所以我在Path的后面
   添加 **;D:\Android_Studio\SDK\ndk-bundle**
 
-  ![图三](/screens/S2_03.png)
+  ![图三](/screen/S2_03.png)
 
 ##### 五、配置完成之后，我们在运行窗口中输入cmd，打开命令行窗口，输入ndk-build -version，看到如图所示内容，说明配置成功
 
-  ![图四](/screens/S2_04.png);
+  ![图四](/screen/S2_04.png);
 
 ##### 六、我们新建一个普通的Android项目，这里我取名为MYJNI，接着编写MainActivity.java的具体代码
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
 ##### 七、然后我们在app目录下面添加**jni文件夹**，并在里面添加三个文件：
 
-![图五](/screens/S2_05.png);
+![图五](/screen/S2_05.png);
 
 * hello.c
 ```c
@@ -126,13 +126,13 @@ APP_ABI := all
 ##### 八、接着我们选中hello.c文件，右键Show in explorer，进入上面三个文件所在的文件夹，按住shift按键，然后右键点击
 在此处打开命令窗口
 
-![图六](/screens/S2_06.png);
+![图六](/screen/S2_06.png);
 
 ##### 九、我们在命令行窗口中输入ndk-build，点击回车
 
-![图七](/screens/S2_07.png);
+![图七](/screen/S2_07.png);
 
-![图八](/screens/GIF.gif);
+![图八](/screen/GIF.gif);
 
 ##### 十、修改build.gradle
 
