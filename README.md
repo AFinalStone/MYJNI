@@ -1,107 +1,208 @@
-## NDK学习笔记<四> 使用javah生成头文件
+## NDK学习笔记<五> java调用JNI进行简单加减,加密操作
 
->上篇文章中，我们C文件代码中的函数名是手动书写的，这次我们来尝试使用javah生成我们需要的函数名
+>之前写的项目都是非常简单的项目，这次进一步加深NDK的使用，C语言函数会稍微复杂一点
 
-##### 一、我们新建一个普通的安卓项目，这里我取名为ndk01，添加MainActivity
+
+##### 一、先看一下我们这次要实现的效果图
+
+![效果图](/screen/ndk02_01.gif)
+
+##### 二、首先我们还是建立一个普通的Android项目，
+
+- **添加MainActivity.java**
 
 ```java
 
-package com.shi.androidstudy.ndk01;
-
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 public class MainActivity extends AppCompatActivity {
+
+    EditText et_addA;
+    EditText et_addB;
+    EditText et_minuend;
+    EditText et_sub;
+    EditText et_userName;
+    EditText et_userPassword;
+    EditText et_strMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        et_addA = (EditText) findViewById(R.id.et_addA);
+        et_addB = (EditText) findViewById(R.id.et_addB);
+        et_minuend = (EditText) findViewById(R.id.et_minuend);
+        et_sub = (EditText) findViewById(R.id.et_sub);
+        et_userName = (EditText) findViewById(R.id.et_userName);
+        et_userPassword = (EditText) findViewById(R.id.et_userPassword);
+        et_strMessage = (EditText) findViewById(R.id.et_strMessage);
     }
-    public native String useJavah();
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_add:
+                int addA = Integer.parseInt(et_addA.getText().toString().trim());
+                int addB = Integer.parseInt(et_addB.getText().toString().trim());
+                showMessage("两数相加结果为：" + add(addA, addB));
+                break;
+            case R.id.tv_sub:
+                int subA = Integer.parseInt(et_minuend.getText().toString().trim());
+                int subB = Integer.parseInt(et_sub.getText().toString().trim());
+                showMessage("两数相减结果为：" + sub(subA, subB));
+                break;
+            case R.id.tv_encryptPassword:
+                int passWord = Integer.parseInt(et_userPassword.getText().toString().trim());
+                showMessage("密码异或加密之后为：" + encryptPassword(passWord));
+                break;
+            case R.id.tv_encryptMessage:
+                showMessage("字符串加密之后为：" + encryptString(et_strMessage.getText().toString().trim()));
+                break;
+        }
+    }
+
+    private void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public native int add(int i, int j);
+
+    public native int sub(int i, int j);
+
+    public native int encryptPassword(int password);
+
+    public native String encryptString(String strMessage);
 
     static {
-        // 导入动态库
-        System.loadLibrary("javah");
+        System.loadLibrary("MyNdk");
     }
+
 }
+
 
 ```
 
-##### 二、打开当前包名的根目录，按住shift键，点击鼠标右键，打开命令行，
-##### 输入javah com.shi.androidstudy.ndk01.MainActivity，
-##### 会在当前目录下面生成一个com_shi_androidstudy_ndk01_MainActivity.h的文件
+- **添加activity_main.xml**
 
-![使用javah生成](/screen/ndk01_01.gif)
+非常简单的布局，这里就不给出具体的xml代码了。需
 
-##### 三、在当前项目中添加jni文件夹，在文件夹下面添加javah.c文件，并
-##### 把com_shi_androidstudy_ndk01_MainActivity.h文件中的函数名称复制粘贴进去
+##### 三、添加NDK文件，jni文件夹，AddAndSub.c，Encrypt.c Android.mk，Application.mk
+
+
+AddAndSub.c文件
 ```c
 #include <jni.h>
 
-JNIEXPORT jstring JNICALL Java_com_shi_androidstudy_ndk01_MainActivity_useJavah
-  (JNIEnv * env, jobject obj){
-  	char* pc = "use javah make .h文件";
-  	jstring str = (**env).NewStringUTF(env, pc);
-  	return str;
+/*
+ * Class:     com_shi_androidstudy_ndk02_MainActivity
+ * Method:    add
+ */
+JNIEXPORT jint JNICALL Java_com_shi_androidstudy_ndk02_MainActivity_add
+  (JNIEnv * env, jobject obj, jint i, jint j){
+    return i+j;
+  }
+
+/*
+ * Class:     com_shi_androidstudy_ndk02_MainActivity
+ * Method:    sub
+ */
+JNIEXPORT jint JNICALL Java_com_shi_androidstudy_ndk02_MainActivity_sub
+  (JNIEnv * env, jobject obj, jint i, jint j){
+    return i-j;
   }
 
 ```
-##### 继续在jin文件中添加Android.mk
+
+Encrypt.c文件
+```c
+#include <jni.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+/*
+ * Class:     com_shi_androidstudy_ndk02_MainActivity
+ * Method:    encryptPassword
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_shi_androidstudy_ndk02_MainActivity_encryptPassword
+  (JNIEnv * env, jobject obj, jint password){
+	return password ^ 123123;
+  }
+
+
+char* Jstring2CStr(JNIEnv* env, jstring jstr) {
+
+	char* rtn = NULL;
+
+	jclass clsstring = (*env)->FindClass(env, "java/lang/String");
+	jstring strencode = (*env)->NewStringUTF(env, "GB2312");
+
+	jmethodID mid = (*env)->GetMethodID(env,clsstring, "getBytes", "(Ljava/lang/String;)[B");
+
+	jbyteArray barr = (jbyteArray)(*env)->CallObjectMethod(env,jstr,mid,strencode); // String.getByte("GB2312");
+	jsize alen = (*env)->GetArrayLength(env, barr);
+	jbyte* ba = (*env)->GetByteArrayElements(env, barr, JNI_FALSE);
+
+	if(alen > 0) {
+	rtn = (char*)malloc(alen+1); //"\0"
+	memcpy(rtn, ba, alen);
+	rtn[alen] = 0;
+	}
+
+	(*env) -> ReleaseByteArrayElements(env,barr,ba,0);
+
+	return rtn;
+}
+
+/*
+ * Class:     com_shi_androidstudy_ndk02_MainActivity
+ * Method:    encryptString
+ * Signature: (Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_shi_androidstudy_ndk02_MainActivity_encryptString
+  (JNIEnv * env, jobject obj, jstring message){
+
+	char* pc = Jstring2CStr(env, message);
+
+	// 得到jstring的长度
+	int size = (**env).GetStringLength(env, message);
+
+	int i = 0;
+	for (i = 0; i < size; ++i) {
+		char c = *(pc + i);
+		*(pc + i) = c + 1;
+	}
+
+	return (**env).NewStringUTF(env, pc);
+  }
+
+```
+
+Android.mk文件
+
 ```mk
 
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := javah
-LOCAL_SRC_FILES := javah.c
+LOCAL_MODULE    := MyNdk
+LOCAL_SRC_FILES := AddAndSub.c Encrypt.c
 
 include $(BUILD_SHARED_LIBRARY)
 
 ```
 
-##### 继续在jin文件中添加Application.mk
+Application.mk文件
+
 ```mk
 
 APP_ABI := all
 
 ```
+##### 四、依然不要忘记修改gradle文件，否则项目会找不到库文件
 
-![添加jni文件夹](/screen/ndk01_02.png)
-
-##### 四、继续在jni文件夹中打开命令行窗口，ndk-build 生成.so文件，修改gradle文件(不修改项目无法找到库文件)
-##### ，然后成功运行项目
-
-![运行项目](/screen/ndk01_03.gif)
-
-
-##### 五、更加方便的使用javah
-
-本文主要实现了如何对一个包含native方法的对象生成.h文件，以方便我们使用其中的函数名，上面我们是通过命令行来
-生成.h文件，下面我们再介绍一种更加简单的方法，把javah添加的AndroidStudio的Tool中，我们直接右键就能生成
-我们想要的.h文件
-
-- 在设置界面，找到External Tools，如下图，然后点击右边方框的“+”。
-
-![设置tool](/screen/ndk01_04.png)
-
-继续设置相应的参数
-
-![设置tool参数](/screen/ndk01_05.png)
-
-```参数
-
-Program: $JDKPath$\bin\javah.exe
-Parameters: -classpath . -jni -d $ModuleFileDir$/src/main/jni $FileClass$
-Working directory: $ModuleFileDir$\src\main\Java
-
-```
-使用我们添加的Tool，成功生成.h文件
-![设置tool参数](/screen/ndk01_06.gif)
-
-
-
+到这里运行程序，应该就能得到我们想要的效果了，界面输入我没有进行判空处理，所以别输入空的字符串，
+密码加密因为是C语言的int类型，所以不能过长，其他部分主要是Encrypt.c中的代码看起来可能有点生疏，
+多看多西靠应该问题不大，在编写C语言的过程中，经常需要进行各种java变量和C变量的类型转换，
+可以尝试多看看jni.h文件，对于我们理解类型转换会很有帮助
 
 
 
