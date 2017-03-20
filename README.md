@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 ##### 输入javah com.shi.androidstudy.ndk01.MainActivity，
 ##### 会在当前目录下面生成一个com_shi_androidstudy_ndk01_MainActivity.h的文件
 
-![使用javah生成](/screen/ndk01_02.gif)
+![使用javah生成](/screen/ndk01_01.gif)
 
 ##### 三、在当前项目中添加jni文件夹，在文件夹下面添加javah.c文件，并
 ##### 把com_shi_androidstudy_ndk01_MainActivity.h文件中的函数名称复制粘贴进去
@@ -68,7 +68,7 @@ APP_ABI := all
 
 ```
 
-![添加jni文件夹](/screen/ndk01_01.png)
+![添加jni文件夹](/screen/ndk01_02.png)
 
 ##### 四、继续在jni文件夹中打开命令行窗口，ndk-build 生成.so文件，修改gradle文件(不修改项目无法找到库文件)
 ##### ，然后成功运行项目
