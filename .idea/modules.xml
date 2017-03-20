@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MYJNI.iml" filepath="$PROJECT_DIR$/MYJNI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MYJNI.iml" filepath="$PROJECT_DIR$/MYJNI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ndk01/ndk01.iml" filepath="$PROJECT_DIR$/ndk01/ndk01.iml" />
       <module fileurl="file://$PROJECT_DIR$/ndk02/ndk02.iml" filepath="$PROJECT_DIR$/ndk02/ndk02.iml" />

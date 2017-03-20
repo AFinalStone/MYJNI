@@ -3,7 +3,7 @@
 >之前写的项目都是非常简单的项目，这次进一步加深NDK的使用，C语言函数会稍微复杂一点
 
 
-##### 一、先看一下我们这次要实现的效果图
+##### 一、首先看一下我们这次要实现的效果图
 
 ![效果图](/screen/ndk02_01.gif)
 
@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
 - **添加activity_main.xml**
 
-非常简单的布局，这里就不给出具体的xml代码了。需
+非常简单的布局，这里就不给出具体的xml代码了。
 
-##### 三、添加NDK文件，jni文件夹，AddAndSub.c，Encrypt.c Android.mk，Application.mk
+##### 三、添加生成.so库需要的文件：jni文件夹，AddAndSub.c，Encrypt.c Android.mk，Application.mk
 
 
 AddAndSub.c文件
@@ -201,7 +201,7 @@ APP_ABI := all
 
 到这里运行程序，应该就能得到我们想要的效果了，界面输入我没有进行判空处理，所以别输入空的字符串，
 密码加密因为是C语言的int类型，所以不能过长，其他部分主要是Encrypt.c中的代码看起来可能有点生疏，
-多看多西靠应该问题不大，在编写C语言的过程中，经常需要进行各种java变量和C变量的类型转换，
+多看多思考应该问题不大，在编写C语言的过程中，经常需要进行各种java变量和C变量的类型转换，
 可以尝试多看看jni.h文件，对于我们理解类型转换会很有帮助
 
 
