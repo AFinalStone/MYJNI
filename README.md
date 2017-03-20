@@ -103,16 +103,15 @@ APP_ABI := all
 ```
 
 
-##### 三、接着我们选中hello.c文件，右键Show in explorer，进入上面三个文件所在的文件夹，按住shift按键，
-  然后右键点击在此处打开命令窗口
+##### 三、接着我们选中hello.c文件，右键Show in explorer，进入上面三个文件所在的文件夹，按住shift按键，然后右键点击在此处打开命令窗口
 
-![图六](/screen/S2_06.png);
+![图六](/screen/S2_06.png)
 
 ##### 四、我们在命令行窗口中输入ndk-build，点击回车
 
-![图七](/screen/S2_07.png);
+![图七](/screen/S2_07.png)
 
-![图八](/screen/GIF.gif);
+![图八](/screen/GIF.gif)
 
 ##### 五、修改build.gradle
 
@@ -130,7 +129,7 @@ android {
 
 ##### 六、成功运行项目
 
-![图九](/screen/SUCCESS.gif);
+![图九](/screen/SUCCESS.gif)
 
 
 
