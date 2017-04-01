@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         et_addA = (EditText) findViewById(R.id.et_addA);
-        et_addB = (EditText) findViewById(R.id.et_addB);
+        et_addB = (EditText) findViewById(R .id.et_addB);
         et_minuend = (EditText) findViewById(R.id.et_minuend);
         et_sub = (EditText) findViewById(R.id.et_sub);
         et_userName = (EditText) findViewById(R.id.et_userName);

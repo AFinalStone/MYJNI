@@ -10,18 +10,14 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/ctojava" />
             <option value="$PROJECT_DIR$/ndk01" />
             <option value="$PROJECT_DIR$/ndk02" />
+            <option value="$PROJECT_DIR$/ndk03_alipay" />
+            <option value="$PROJECT_DIR$/ndk04_alipay" />
           </set>
         </option>
-        <option name="myModules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/ndk01" />
-            <option value="$PROJECT_DIR$/ndk02" />
-          </set>
-        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

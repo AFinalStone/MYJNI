@@ -1,1 +1,1 @@
-include ':app', ':ndk01', ':ndk02'
+include ':app', ':ndk01', ':ndk02', ':ndk03_alipay', ':ndk04_alipay', ':ctojava'
