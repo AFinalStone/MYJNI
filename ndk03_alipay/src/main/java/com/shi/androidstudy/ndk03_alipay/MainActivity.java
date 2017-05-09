@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.shi.androidstudy.ndk03.R;
 
 public class MainActivity extends AppCompatActivity {
 

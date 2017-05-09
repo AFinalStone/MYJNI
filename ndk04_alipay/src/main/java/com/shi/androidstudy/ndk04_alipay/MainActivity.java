@@ -96,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(msg);
     }
 
+
+    public static String printlnAndBack(String msg) {
+        String backStr = "我是返回值:"+msg;
+        return backStr;
+    }
+
     /**
      * 返回码
      * 0 支付成功

@@ -47,6 +47,8 @@ JNIEXPORT jint JNICALL Java_com_shi_androidstudy_ndk04_1alipay_MainActivity_pay
     // 得到静态方法     public static void println(String msg)；
     // jmethodID   (*GetStaticMethodID)(JNIEnv*, jclass 类, const char* 方法名, const char* 方法签名(需要使用javap获取方法签名));
     jmethodID methodId_println = (**env).GetStaticMethodID(env, clazz, "println", "(Ljava/lang/String;)V");
+    jmethodID methodId_printlnAndBack = (**env).GetStaticMethodID(env, clazz, "printlnAndBack", "(Ljava/lang/String;)Ljava/lang/String;");
+
 
     // 调用获取到的方法
     // void (*CallVoidMethod)(JNIEnv*, jobject, jmethodID, ...);
@@ -70,6 +72,10 @@ JNIEXPORT jint JNICALL Java_com_shi_androidstudy_ndk04_1alipay_MainActivity_pay
     //void  (*CallStaticVoidMethod)(JNIEnv*, jclass 类, jmethodID 方法名, ...);
     jstring tip  =(*env)->NewStringUTF(env, "操作完成...");
     (**env).CallStaticVoidMethod(env, clazz, methodId_println, tip);
+
+    //jobject     (*CallStaticObjectMethod)(JNIEnv*, jclass, jmethodID, ...);
+    jstring tipBack = (**env).CallStaticObjectMethod(env, clazz, methodId_printlnAndBack, tip);
+    (**env).CallStaticVoidMethod(env, clazz, methodId_println, tipBack);
 
 	// 拿到C语言可以使用的字符串
 	char* pa = Jstring2CStr(env, account);
