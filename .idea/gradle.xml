@@ -3,18 +3,18 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="D:\AndroidStudio\gradle\gradle-2.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/ctojava" />
-            <option value="$PROJECT_DIR$/ndk01" />
-            <option value="$PROJECT_DIR$/ndk02" />
             <option value="$PROJECT_DIR$/ndk03_alipay" />
             <option value="$PROJECT_DIR$/ndk04_alipay" />
+            <option value="$PROJECT_DIR$/ndk_01" />
+            <option value="$PROJECT_DIR$/ndk_02" />
+            <option value="$PROJECT_DIR$/ndk_03" />
+            <option value="$PROJECT_DIR$/ndk_04_ctojava" />
+            <option value="$PROJECT_DIR$/ndk_05_ctojava" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
