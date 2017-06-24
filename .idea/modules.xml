@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MYJNI.iml" filepath="$PROJECT_DIR$/MYJNI.iml" />
       <module fileurl="file://D:\Android\AndroidProject\MYJNI\ndk_03\ndk03.iml" filepath="D:\Android\AndroidProject\MYJNI\ndk_03\ndk03.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ndk03_alipay/ndk03_alipay.iml" filepath="$PROJECT_DIR$/ndk03_alipay/ndk03_alipay.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ndk04_alipay/ndk04_alipay.iml" filepath="$PROJECT_DIR$/ndk04_alipay/ndk04_alipay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ndk05_alipay/ndk05_alipay.iml" filepath="$PROJECT_DIR$/ndk05_alipay/ndk05_alipay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ndk06_alipay/ndk06_alipay.iml" filepath="$PROJECT_DIR$/ndk06_alipay/ndk06_alipay.iml" />
       <module fileurl="file://$PROJECT_DIR$/ndk_01/ndk_01.iml" filepath="$PROJECT_DIR$/ndk_01/ndk_01.iml" />
       <module fileurl="file://$PROJECT_DIR$/ndk_02/ndk_02.iml" filepath="$PROJECT_DIR$/ndk_02/ndk_02.iml" />
       <module fileurl="file://$PROJECT_DIR$/ndk_03/ndk_03.iml" filepath="$PROJECT_DIR$/ndk_03/ndk_03.iml" />

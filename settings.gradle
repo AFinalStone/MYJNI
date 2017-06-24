@@ -1,1 +1,1 @@
-include ':ndk_02', ':ndk_03', ':ndk03_alipay', ':ndk04_alipay', ':ndk_01', ':ndk_04_ctojava', ':ndk_05_ctojava'
+include ':ndk_02', ':ndk_03', ':ndk05_alipay', ':ndk06_alipay', ':ndk_01', ':ndk_04_ctojava', ':ndk_05_ctojava'

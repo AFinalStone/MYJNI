@@ -8,8 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/ndk03_alipay" />
-            <option value="$PROJECT_DIR$/ndk04_alipay" />
+            <option value="$PROJECT_DIR$/ndk05_alipay" />
+            <option value="$PROJECT_DIR$/ndk06_alipay" />
             <option value="$PROJECT_DIR$/ndk_01" />
             <option value="$PROJECT_DIR$/ndk_02" />
             <option value="$PROJECT_DIR$/ndk_03" />
