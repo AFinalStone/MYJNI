@@ -97,33 +97,19 @@ void GetTime() {
 		}
 	}
 
-//	jstring jstr = NULL;
-//	char* cstr = NULL;
-	 jclass TestProvider = (**jniEnv).FindClass(jniEnv, "com/shi/androidstudy/ctojava/TestProvider");
-     // 得到静态方法     public static void println(String msg)；
-     // jmethodID   (*GetStaticMethodID)(JNIEnv*, jclass 类, const char* 方法名, const char* 方法签名(需要使用javap获取方法签名));
-    jmethodID getTime = (**jniEnv).GetStaticMethodID(jniEnv, TestProvider, "getTime", "()Ljava/lang/String;");
-	__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "GetTime Begin" );
-	(*jniEnv)->CallStaticObjectMethod(jniEnv, TestProvider, getTime);
-//	cstr = (char*) (*jniEnv)->GetStringUTFChars(jniEnv,jstr, 0);
-//	__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "Success Get Time from Java , Value = %s",cstr );
-//	__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "GetTime End" );
+	jstring jstr = NULL;
+	char* cstr = NULL;
 
-//	(*jniEnv)->ReleaseStringUTFChars(jniEnv, jstr, cstr);
-//	(*jniEnv)->DeleteLocalRef(jniEnv, jstr);
+	__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "GetTime Begin" );
+	jstr = (*jniEnv)->CallStaticObjectMethod(jniEnv, TestProvider, getTime);
+	cstr = (char*) (*jniEnv)->GetStringUTFChars(jniEnv,jstr, 0);
+	__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "Success Get Time from Java , Value = %s",cstr );
+	__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "GetTime End" );
+
+	(*jniEnv)->ReleaseStringUTFChars(jniEnv, jstr, cstr);
+	(*jniEnv)->DeleteLocalRef(jniEnv, jstr);
 }
-/**
- * 获取时间 ---- 调用 Java 方法
- */
-void GetTime02(JNIEnv *env) {
-    // 找到类com.shi.androidstudy.ctojava.TestProvider
-    // jclass (*FindClass)(JNIEnv*, const char*);
-    jclass clazz = (**env).FindClass(env, "com/shi/androidstudy/ctojava/TestProvider");
-    // 得到静态方法     public static void println(String msg)；
-    // jmethodID   (*GetStaticMethodID)(JNIEnv*, jclass 类, const char* 方法名, const char* 方法签名(需要使用javap获取方法签名));
-    jmethodID methodId_getTime = (**env).GetStaticMethodID(env, clazz, "getTime", "()Ljava/lang/String;");
-    (**env).CallStaticObjectMethod(env, clazz, methodId_getTime);
-}
+
 /**
  * SayHello ---- 调用 Java 方法
  */

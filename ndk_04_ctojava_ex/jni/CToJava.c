@@ -15,7 +15,6 @@ JNIEXPORT void JNICALL Java_com_shi_androidstudy_ctojava_MainActivity_getTime(JN
 		jniEnv = env;
 	}
 	GetTime();
-//	GetTime02(env);
 }
 
 /**

@@ -8,13 +8,12 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/ndk05_alipay" />
-            <option value="$PROJECT_DIR$/ndk06_alipay" />
             <option value="$PROJECT_DIR$/ndk_01" />
             <option value="$PROJECT_DIR$/ndk_02" />
             <option value="$PROJECT_DIR$/ndk_03" />
             <option value="$PROJECT_DIR$/ndk_04_ctojava" />
-            <option value="$PROJECT_DIR$/ndk_05_ctojava" />
+            <option value="$PROJECT_DIR$/ndk_04_ctojava_ex" />
+            <option value="$PROJECT_DIR$/ndk_05_alipay" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
