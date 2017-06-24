@@ -3,7 +3,7 @@
 
 [NDK学习笔记<二> 使用javah生成头文件](ndk_02)
 
-[NDK学习笔记<三> java调用JNI进行简单加减,加密操作](ndk_04_ctojava)
+[NDK学习笔记<三> java调用JNI进行简单加减,加密操作](ndk_03)
 
 [NDK学习笔记<四> C语言调用java方法](ndk_04_ctojava)
 
