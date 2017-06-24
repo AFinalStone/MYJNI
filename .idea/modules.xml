@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/ndk_04_ctojava/ndk_04_ctojava.iml" filepath="$PROJECT_DIR$/ndk_04_ctojava/ndk_04_ctojava.iml" />
       <module fileurl="file://$PROJECT_DIR$/ndk_04_ctojava_ex/ndk_04_ctojava_ex.iml" filepath="$PROJECT_DIR$/ndk_04_ctojava_ex/ndk_04_ctojava_ex.iml" />
       <module fileurl="file://$PROJECT_DIR$/ndk_05_alipay/ndk_05_alipay.iml" filepath="$PROJECT_DIR$/ndk_05_alipay/ndk_05_alipay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ndk_06_decompilation/ndk_06_decompilation.iml" filepath="$PROJECT_DIR$/ndk_06_decompilation/ndk_06_decompilation.iml" />
     </modules>
   </component>
 </project>

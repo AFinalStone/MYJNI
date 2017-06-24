@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/ndk_04_ctojava" />
             <option value="$PROJECT_DIR$/ndk_04_ctojava_ex" />
             <option value="$PROJECT_DIR$/ndk_05_alipay" />
+            <option value="$PROJECT_DIR$/ndk_06_decompilation" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

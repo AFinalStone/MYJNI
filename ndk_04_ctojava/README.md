@@ -374,6 +374,14 @@ JNIEXPORT void JNICALL Java_com_shi_androidstudy_ctojava_MainActivity_sayHello(J
 
 ```
 
+注：
+```c
+ __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,“***”) // LOG类型:debug
+ __android_log_print(ANDROID_LOG_INFO,LOG_TAG,“***”) // LOG类型:info
+ __android_log_print(ANDROID_LOG_WARN,LOG_TAG,“***”) // LOG类型:warning
+ __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,“***”) // LOG类型:error
+ __android_log_print(ANDROID_LOG_FATAL,LOG_TAG,“***”) // LOG类型:Verbose
+```
 - Android.mk
 
 ```mk

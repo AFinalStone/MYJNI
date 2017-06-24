@@ -57,6 +57,8 @@ JNIEXPORT void JNICALL Java_com_shi_androidstudy_ctojava_MainActivity_getTime(JN
 }
 
 
+
+
 /**
  *  Java 中 声明的native sayHello 方法的实现
  */
