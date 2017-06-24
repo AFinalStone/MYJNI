@@ -22,6 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     static {
         // 导入动态库
-        System.loadLibrary("javahe");
+        System.loadLibrary("javah");
     }
 }
