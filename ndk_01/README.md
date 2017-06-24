@@ -40,7 +40,7 @@ java程序也只能在这一个系统上运行了。所以jni就使得java很容
 **2.然后还要懂得C语言,C++语言**
 **3.熟悉JNI接口规范，要懂得查看<jni.h>文件**
 
-### <二> 成功搭建NDK开发环境
+### <一> 成功搭建NDK开发环境
 
 #### 工欲善其事必先利其器，进行NDK开发的第一步，当然是NDK的开发环境搭建了，这里简单讲述一下个人搭建过程
 
@@ -62,7 +62,7 @@ java程序也只能在这一个系统上运行了。所以jni就使得java很容
 
   ![图四](http://img.blog.csdn.net/20170321101340112?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYWJjNjM2ODc2NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
-### <三> 成功运行一个包含NDK的简单Android程序
+### <二> 成功运行一个包含NDK的简单Android程序
 
 #### 一、我们新建一个普通的Android项目，这里我取名为MYJNI，接着编写MainActivity.java的具体代码
 
