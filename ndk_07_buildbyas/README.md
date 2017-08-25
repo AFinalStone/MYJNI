@@ -125,14 +125,6 @@ target_link_libraries( # Specifies the target library.
 
 ![结构](picture/结构.png)
 
-### 编译生成.so库文件
-
-点击Build->Rebuild Project，重新编译整个项目包括.so库文件。
-
-![结构](picture/so库文件.png)
-
-这样我们打包生成的app里面就自动包含我们需要的.so库文件。
-
 ### 二、新建自带AndroidStudio开发NDK环境的项目
 
 New Project之后，需要注意下面两个页面：
@@ -142,7 +134,15 @@ New Project之后，需要注意下面两个页面：
 
 ![选择C++标准](picture/步骤二.png)
 
-### 三、NDK需要注意的方面：
+### 三、编译生成.so库文件
+
+点击Build->Rebuild Project，重新编译整个项目包括.so库文件。
+
+![结构](picture/so库文件.png)
+
+这样我们打包生成的app里面就自动包含我们需要的.so库文件。
+
+### 四、NDK需要注意的方面：
 
 - 关于NDK部分文件的后缀名：
 
