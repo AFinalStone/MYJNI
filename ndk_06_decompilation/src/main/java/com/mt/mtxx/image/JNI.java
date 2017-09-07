@@ -181,9 +181,6 @@ public class JNI {
 
     public native byte[] deal(byte[] paramArrayOfByte, int paramInt1, int paramInt2, int paramInt3, int paramInt4, String paramString);
 
-    static {
-        System.loadLibrary("mtimage-jni");
-    }
 }
 
 /* Location:           C:\Users\LiFZhe\Desktop\mtxx_dex2jar.jar
