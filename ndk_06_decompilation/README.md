@@ -1,3 +1,94 @@
+
+这里提供美图秀秀非常早先的一个版本(相关资源文章最后给出)，我们使用AndroidKill反编译该apk，
+然后获取到美图秀秀的源代码以及so库文件，然后尝试在自己的程序中调用美图秀秀的so库文件，
+实现美图秀秀美化图片的功能。
+
+一、首先看一下美图秀秀处理图片的流程和效果，apk安装完毕，可以看到软件logo
+
+![](pic/01.jgp)
+
+接着打开软件进入软件首页，进入美图秀秀首页
+
+![](pic/02.jgp)
+
+点击美化图片按钮，进入图片选择页面
+
+![](pic/03.png)
+
+
+点击从相册中选择，然后选取一张图片，选择图片特效，然后选择经典HDR，就可以看到图片效果了
+
+首先是原图
+
+![](pic/效果.png)
+
+处理之后：
+
+![](pic/04.png)
+
+
+
+1、TopViewActivity的关键代码：
+
+```markdown
+
+public class TopViewActivity
+  extends Activity
+{
+  public static int backID;
+  public int Background;
+  private Button btn_about;
+  private Button btn_beautyPic;//注释：美化图片
+  private Button btn_newboyhelp;
+  private Button btn_set;
+  private TextView btn_versionName;
+  private LinearLayout buttonsLayout;
+
+  ...代码省略...
+
+  public void onCreate(Bundle paramBundle)
+  {
+    getWindow().setFlags(1024, 1024);
+    super.onCreate(paramBundle);
+    setContentView(2130903055);
+    findView();
+    this.tipAnimation = AnimationUtils.loadAnimation(this, 2130968592);
+    this.btn_beautyPic.setOnClickListener(new OnClickListenerBeautyPic());//注释：设置点击事件
+    this.btn_beautyPic.setOnTouchListener(new OnTouchListenerBeautyPic());
+    this.btn_newboyhelp.setOnTouchListener(new OnTouchListenerNewboyhelp());
+    this.btn_newboyhelp.setOnClickListener(new OnClickListenerNewboyhelp());
+    this.btn_about.setOnTouchListener(new OnTouchListenerAbout());
+    this.btn_about.setOnClickListener(new OnClickListenerAbout());
+    this.btn_set.setOnTouchListener(new OnTouchListenerSet());
+    this.btn_set.setOnClickListener(new OnClickListenerSet());
+    getName();
+    this.btn_versionName.setText(this.versionName + " 正式版");
+    this.btn_versionName.setTextSize(12.0F);
+  }
+  
+  ...代码省略...
+  
+  class OnClickListenerBeautyPic
+    implements View.OnClickListener
+  {
+    OnClickListenerBeautyPic() {}
+    
+    public void onClick(View paramView)
+    {
+       //注释：打开ChoosePicActivity页面,这样我们就去看ChoosePicActivity的具体代码
+      paramView = new Intent(TopViewActivity.this, ChoosePicActivity.class);
+      TopViewActivity.this.startActivity(paramView);
+      TopViewActivity.this.overridePendingTransition(2130968576, 2130968577);
+    }
+  }
+  
+  ...代码省略...
+
+}
+```
+
+上面代码
+
 最近碰见了一个错误： 
 ibhyphenate_av.so: has text relocations 
 
