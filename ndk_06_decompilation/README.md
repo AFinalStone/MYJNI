@@ -4,7 +4,7 @@
 然后获取到美图秀秀的源代码以及so库文件，然后尝试在自己的程序中调用美图秀秀的so库文件，
 实现美图秀秀美化图片的功能。
 
-一、查看美图秀秀的美图效果
+### 一、查看美图秀秀的美图效果
 
 首先看一下美图秀秀处理图片的流程和效果，apk安装完毕，可以看到软件logo
 
@@ -27,7 +27,7 @@
 
 ![](pic/05.png)
 
-二、反编译apk获取源代码和so库文件
+### 二、反编译apk获取源代码和so库文件
 
 我们使用反编译软件AndroidKiller对该apk进行反编译，具体下载和反编译请自行百度，很简单，这里就不讲述了
 
@@ -36,11 +36,11 @@
 ![](pic/项目结构图.png)
 
 
-三、我们在项目中使用美图秀秀的so库文件，实现图片处理的功能
+### 三、我们在项目中使用美图秀秀的so库文件，实现图片处理的功能
 
 ![](pic/so文件.png)
 
-1、复制armeabi文件夹以及so库文件到我们项目的libs目录下面，然后依然要在gradle中设置：
+#### 1、复制armeabi文件夹以及so库文件到我们项目的libs目录下面，然后依然要在gradle中设置：
 
 ```
     sourceSets {
@@ -50,7 +50,7 @@
     }
 ```
 
-2、我们知道的.so库文件中的Java对象中的native方法都是有完整的包名映射路径的，所以我们需要查看美图秀秀中的
+#### 2、我们知道的.so库文件中的Java对象中的native方法都是有完整的包名映射路径的，所以我们需要查看美图秀秀中的
 native方法都放在哪里，经过分析（为了让文章简单明了，具体分析过程放在后面），我们可以发现全部都集中在一个名字叫做JNI的对象中：
 
 ```java
@@ -243,7 +243,7 @@ public class JNI {
 
 这个对象里面包含了所有对图片处理的native方法，我们把这个对象以及他的完成包名全部复制到我们的项目中。
 
-3、编写我们的MainActivity，在里面调用JNI实现对图片的美化功能
+#### 3、编写我们的MainActivity，在里面调用JNI实现对图片的美化功能
 
 ```java
 package com.afinalstone.administrator.ndk_06_decompilation;
@@ -310,14 +310,14 @@ public class MainActivity extends AppCompatActivity {
 
 ![效果图](pic/效果.gif)
 
-四、分析
+### 四、分析
 
 早期的apk并没有现在放黑加固加壳之类的防范措施(看看现在的加固和安全基本都是做的一层又一层。。。)，
-所以我们可以清楚的看到项目的入口是TopViewActivity：
+所以反编译之后，我们可以非常清楚的看到项目的入口是TopViewActivity：
 
-![TopViewActivity](pic/02.png)
+![TopViewActivity](pic/项目结构图.png)
 
-1、TopViewActivity的关键代码：
+#### 1、TopViewActivity的关键代码：
 
 ```markdown
 public class TopViewActivity
@@ -379,7 +379,7 @@ public class TopViewActivity
 
 上面代码对“美化图片”按钮进行点击事件设置，开启了一个名叫ChoosePicActivity的新Activity。
 
-2、ChoosePicActivity的关键代码：
+#### 2、ChoosePicActivity的关键代码：
 
 ![ChoosePicActivity](pic/03.png)
 
@@ -533,7 +533,7 @@ public class ChoosePicActivity
 
 ````
 
-3、ChoosePicDialog对话框的具体代码
+#### 3、ChoosePicDialog对话框的具体代码
 
 ```java
 
@@ -693,7 +693,7 @@ public class ChoosePicDialog
 
 ```
 
-4、MtxxActivity的具体代码：
+#### 4、MtxxActivity的具体代码：
 
 ![MtxxActivity](pic/04.png)
 
@@ -839,7 +839,7 @@ public class MtxxActivity extends Activity
 上面的代码我们主要讲解一个按钮，就是特效按钮，从代码中我们可以发现对这个按钮设置点击事件，然后调用toEdit()方法，
 紧接着进入StyleEffectActivity对象中。
 
-5、StyleEffectActivity的具体代码:
+#### 5、StyleEffectActivity的具体代码:
 
 ![StyleEffectActivity](pic/05.png)
 
@@ -1255,7 +1255,7 @@ public class StyleEffectActivity
 等待图片的美化功能完毕之后，会在handler中再次调用ViewEditGalleryText对象的updateShow()方法来进行图片刷新，把处理之后的二进制图片资源重新展示到控件上面。
 
 
-6、ViewEditGalleryText的具体代码：
+#### 6、ViewEditGalleryText的具体代码：
 
 ```java
 public class ViewEditGalleryText
@@ -1519,7 +1519,7 @@ public class ViewEditGalleryText
 比较重要的方法主要有两个processEffect()和updateShow()方法，在processEffect()方法中进一步调用ImageProcess的各类处理图片的方法来实现对图片的不同变化，最终调用updateShow()来展示鲜果。
 
 
-7、ImageProcess对象
+#### 7、ImageProcess对象
 
 这个对象里面的方法基本都是对图片的美化处理方法，这里我们主要用到三个方法:
 
