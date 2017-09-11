@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView_result;
     private JNI jni;
     private Bitmap bitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +31,24 @@ public class MainActivity extends AppCompatActivity {
         bitmap = BitmapFactory.decodeStream(is);
     }
 
-    public void onClick(View view){
+    public void onClick(View view) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         int[] pixels = new int[width * height];
         bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-        jni.StyleLomoB(pixels, width, height);
-        // 用处理好的像素数组 创建一张新的图片就是经过特效处理的
+        switch (view.getId()) {
+            case R.id.btn_LomoB:
+                jni.StyleLomoB(pixels, width, height);
+                break;
+            case R.id.btn_LomoC:
+                jni.StyleLomoC(pixels, width, height);
+                break;
+            case R.id.btn_StyleOldPhoto:
+                jni.StyleOldPhoto(pixels, pixels, width, height);
+                break;
+        }
+
+        // 用处理好的像素数组 创建一张新的图片就是经过特效处理的，然后重新设置给ImageView控件
         Bitmap bitmap_result = Bitmap.createBitmap(pixels, width, height, bitmap.getConfig());
         imageView_result.setImageBitmap(bitmap_result);
     }
