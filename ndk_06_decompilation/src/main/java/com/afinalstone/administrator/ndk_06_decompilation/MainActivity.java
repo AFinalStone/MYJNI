@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.mt.mtxx.image.ImageDispose;
 import com.mt.mtxx.image.JNI;
 
 import java.io.InputStream;
