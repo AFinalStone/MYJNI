@@ -319,6 +319,8 @@ public class MainActivity extends AppCompatActivity {
 
 #### 1、TopViewActivity的关键代码：
 
+![TopViewActivity](pic/02.png)
+
 ```markdown
 public class TopViewActivity
   extends Activity
