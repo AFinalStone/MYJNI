@@ -1,3 +1,5 @@
+## NDK学习笔记<七> 使用AndroidStudio本身，编译C/C++文件生成SO文件
+
 之前的项目我们基本都是使用Ndk-build的命令行来编译C/C++文件生成.so库文件的。本篇我们使用AndroidStudio的RebuildProject来编译C/C++文件，生成我们需要的.so库文件。
 
 ### 一、给已经存在的项目配置AndroidStudio开发NDK的环境
@@ -169,3 +171,6 @@ JNI错误总结：http://www.cnblogs.com/xingyun/archive/2012/08/03/2622410.html
 C和C++代码的区别：http://blog.csdn.net/forandever/article/details/50396058
 
 Javap的使用：http://www.365mini.com/page/javap-disassemble-class-file-code.htm
+
+
+项目地址：[传送门](https://github.com/AFinalStone/MYJNI)

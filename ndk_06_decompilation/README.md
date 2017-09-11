@@ -1,3 +1,4 @@
+## NDK学习笔记<六> 反编译现成的项目，调用该项目的so文件
 
 这里提供美图秀秀非常早先的一个版本(相关资源文章最后给出)，我们使用AndroidKiller反编译该apk，
 然后获取到美图秀秀的源代码以及so库文件，然后尝试在自己的程序中调用美图秀秀的so库文件，
@@ -1702,3 +1703,6 @@ ibhyphenate_av.so: has text relocations
 将 targetSdkVersion 的值调整为23以下就可以了。 主要是因为部分so库生成的时候的targetSdkVersion过低(我们这里的美图秀秀的.so库文件也很早了) 没有达到23.所以就会出现了这个错误。
 而这个错误，在6.0以下的手机中你是测试不出来的。只有在6.0以上的系统才会出现这个bug。
 总结： 如果使用了第三方的so库那么 就得注意你自己的targetSdkVersio 的值了。 
+
+
+项目地址：[传送门](https://github.com/AFinalStone/MYJNI)

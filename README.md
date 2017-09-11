@@ -8,3 +8,8 @@
 [NDK学习笔记<四> C语言调用java方法](ndk_04_ctojava)
 
 [NDK学习笔记<五> 模拟支付宝支付流程](ndk_05_alipay)
+
+[NDK学习笔记<六> 反编译现成的项目，调用该项目的so文件](ndk_06_decompilation)
+
+[NDK学习笔记<七> 使用AndroidStudio本身，编译C/C++文件生成SO文件](ndk_07_buildbyas)
+
