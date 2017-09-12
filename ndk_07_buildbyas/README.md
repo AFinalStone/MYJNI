@@ -38,7 +38,7 @@ android {｝后面添加：
     }
 ```
 
-
+指定cmake的具体路径为当前项目的根路径,名字为CMakeLists.txt。
 
 
 整个build.gradle的内容如下：
@@ -94,23 +94,23 @@ dependencies {
 ```
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
+# 需要查阅更多关于AndroidStudio中CMake的更多相关信息，可以查阅文档：https://d.android.com/studio/projects/add-native-code.html
 
 # Sets the minimum version of CMake required to build the native library.
+#设置CMake编译本地代码生成库文件需要的最低版本号
 
 cmake_minimum_required(VERSION 3.4.1)
 
-# Creates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative paths to its source code.
-# You can define multiple libraries, and CMake builds them for you.
-# Gradle automatically packages shared libraries with your APK.
-
 add_library( # Sets the name of the library.
+             # 设置library的名称，我们加载库文件的时候要和这个保持一致
              native-lib
 
-             # Sets the library as a shared library.
-             SHARED
+             # Sets the library as a shared library. 
+             #设置libray作为一个共享libary
+             SHARED 
 
-             # Provides a relative path to your source file(s).
+             # Provides a relative path to your source file(s). 
+             # 提供出我们代码文件的相对路径,如果有多个代码文件，可以依次在这里添加多个
              src/main/cpp/native-lib.cpp )
 
 # Searches for a specified prebuilt library and stores the path as a
@@ -118,6 +118,10 @@ add_library( # Sets the name of the library.
 # default, you only need to specify the name of the public NDK library
 # you want to add. CMake verifies that the library exists before
 # completing its build.
+#搜寻指定的预构建库，并将路径存储在一个变量中；因为CMake默认已经包含了系统依赖库的路径，
+#我们仅仅需要添加我们想要添加的特定的NDK库文件，CMake在完成编译代码之前会去核实我们添加的library是否真的存在。
+
+
 
 find_library( # Sets the name of the path variable.
               log-lib
@@ -129,14 +133,129 @@ find_library( # Sets the name of the path variable.
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
+#指定那些在我们生成目标library的过程需要的其他libary，我们可以链接多个librayr
+#例如你提前定义的或者其他第三方预加载的library，或者系统library。
+
 
 target_link_libraries( # Specifies the target library.
+                       # 指定目标library，假如有多个library,我们都需要在这里添加
                        native-lib
 
                        # Links the target library to the log library
                        # included in the NDK.
+                       # 将目标library链接到日志库中
                        ${log-lib} )
 ```
+
+关于CMake的具体使用，这里再列举另外一个项目中CMakeLists.txt的具体内容：
+
+```
+cmake_minimum_required(VERSION 3.4.1)
+
+#FFMpeg配置
+#FFmpeg配置目录
+set(SO_DIR src/main/jniLibs)
+set(CPP_DIR src/main/cpp)
+
+# 编解码(最重要的库)
+add_library(
+            avcodec
+            SHARED
+            IMPORTED)
+set_target_properties(
+            avcodec
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/${SO_DIR}/${ANDROID_ABI}/libavcodec-57.so
+            )
+
+# 滤镜特效处理库
+add_library( 
+            avfilter 
+            SHARED
+            IMPORTED)
+set_target_properties(
+            avfilter
+            PROPERTIES IMPORTED_LOCATION
+             ${CMAKE_SOURCE_DIR}/${SO_DIR}/${ANDROID_ABI}/libavfilter-6.so)
+
+# 封装格式处理库
+add_library(
+            avformat
+            SHARED
+            IMPORTED)
+set_target_properties(
+            avformat
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/${SO_DIR}/${ANDROID_ABI}/libavformat-57.so)
+
+# 工具库(大部分库都需要这个库的支持)
+add_library(
+            avutil
+            SHARED
+            IMPORTED)
+set_target_properties(
+            avutil
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/${SO_DIR}/${ANDROID_ABI}/libavutil-55.so)
+
+# 音频采样数据格式转换库
+add_library(
+            swresample
+            SHARED
+            IMPORTED)
+set_target_properties(
+            swresample
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/${SO_DIR}/${ANDROID_ABI}/libswresample-2.so)
+
+# 视频像素数据格式转换
+add_library(
+            swscale
+            SHARED
+            IMPORTED)
+set_target_properties(
+            swscale
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/${SO_DIR}/${ANDROID_ABI}/libswscale-4.so)
+
+
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+#判断编译器类型,如果是gcc编译器,则在编译选项中加入c++11支持
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+    message(STATUS "optional:-std=c++11")
+endif(CMAKE_COMPILER_IS_GNUCXX)
+
+#配置编译的头文件
+include_directories(src/main/jniLibs/include)
+
+add_library(
+             native-lib
+
+             SHARED
+
+             ${CPP_DIR}/com_xy_ndk_ffmpeg_NDKFFmpeg.cpp )
+
+find_library(
+              log-lib
+
+              log )
+
+target_link_libraries(
+                       native-lib  avcodec avfilter avformat avutil swresample swscale
+
+                       ${log-lib} )
+
+```
+
+
+再推荐几篇关于Cmake的使用和语法的文章：
+
+[cmake使用示例与整理总结](http://blog.csdn.net/wzzfeitian/article/details/40963457)
+
+[CMakeList配置之编译多个.cpp文件](http://blog.csdn.net/u011028777/article/details/53424927)
+
+[AndroidStudio2.2下利用CMake编译方式的NDK opencv开发](http://blog.csdn.net/ddjjll8877/article/details/52670097?)
 
 到这里查看一下我们的整个项目结构：
 
@@ -187,7 +306,7 @@ C和C++代码的区别：http://blog.csdn.net/forandever/article/details/5039605
 
 Javap的使用：http://www.365mini.com/page/javap-disassemble-class-file-code.htm
 
-cmake使用示例与整理总结：http://blog.csdn.net/wzzfeitian/article/details/40963457
+
 
 
 项目地址：[传送门](https://github.com/AFinalStone/MYJNI)
