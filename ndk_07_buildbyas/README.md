@@ -4,7 +4,7 @@
 
 ### 一、给已经存在的项目配置AndroidStudio开发NDK的环境
 
-1、在我们的项目中的app中的build.gradle中添加
+#### 1、在我们的项目中的app中的build.gradle中添加
 
 defaultConfig｛｝后面添加：
 
@@ -257,7 +257,7 @@ target_link_libraries(
 
 [AndroidStudio2.2下利用CMake编译方式的NDK opencv开发](http://blog.csdn.net/ddjjll8877/article/details/52670097?)
 
-到这里查看一下我们的整个项目结构：
+#### 2、到这里查看一下我们的整个项目结构：
 
 ![结构](picture/结构.png)
 
@@ -305,8 +305,6 @@ JNI错误总结：http://www.cnblogs.com/xingyun/archive/2012/08/03/2622410.html
 C和C++代码的区别：http://blog.csdn.net/forandever/article/details/50396058
 
 Javap的使用：http://www.365mini.com/page/javap-disassemble-class-file-code.htm
-
-
 
 
 项目地址：[传送门](https://github.com/AFinalStone/MYJNI)
