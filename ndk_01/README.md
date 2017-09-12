@@ -179,7 +179,7 @@ APP_ABI := all
 
 #### 五、修改build.gradle
 
-我们需要修改build.gradle文件，否次运行程序，会提示findLibrary returned null之类的错误信息
+我们需要修改build.gradle文件，否次运行程序，会提示findLibrary returned null之类的错误信息，这里主要是为了让工程知道jni库文件的具体路径。
 
 ```gridle
 
@@ -214,7 +214,7 @@ android {
 	* 加载时候的名字: 库文件去掉.so, 去掉前面的lib
 7. 可以开始使用native方法了, 这个时候native方法已经和so文件对应了
 
-#### NDK开发中常见错误
+#### NDK开发中常见错误 
 * 加载动态库出错
     java.lang.UnsatisfiedLinkError: Couldn't load hello123 from loader dalvik.system.PathClassLoader
     [dexPath=/data/app/apk名称,libraryPath=/data/app-lib/apk名称]: findLibrary returned null

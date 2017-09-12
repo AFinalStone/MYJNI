@@ -16,6 +16,18 @@ defaultConfig｛｝后面添加：
   }
 ```
 
+或者：
+
+```gradle
+  externalNativeBuild {
+      cmake {
+          cppFlags ""
+      }
+  }
+```
+
+cmake在编译C/C++代码的时候，回根据上面的两种不同设置来使用C++的两种不同标准，C++11或者默认标准
+
 android {｝后面添加：
 
 ```gradle
@@ -25,6 +37,9 @@ android {｝后面添加：
         }
     }
 ```
+
+
+
 
 整个build.gradle的内容如下：
 
@@ -171,6 +186,8 @@ JNI错误总结：http://www.cnblogs.com/xingyun/archive/2012/08/03/2622410.html
 C和C++代码的区别：http://blog.csdn.net/forandever/article/details/50396058
 
 Javap的使用：http://www.365mini.com/page/javap-disassemble-class-file-code.htm
+
+cmake使用示例与整理总结：http://blog.csdn.net/wzzfeitian/article/details/40963457
 
 
 项目地址：[传送门](https://github.com/AFinalStone/MYJNI)
